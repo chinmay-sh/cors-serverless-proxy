@@ -8,11 +8,22 @@ var app = express()
 
 app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+/*
+var test;
 
+const validator = (req,res) =>{
+    var whitelist = ['https://the-redlord.github.io/', 'http://aakashgangaa.space/'];
 
+    console.log(req.header('Origin'));
+    test=req.header('Origin');
+    
+}
+
+app.use(validator);
+*/
 module.exports.corsHello = serverless(app.get('/',(request, response) => {
     cors(request,response, ()=>{
-        response.send("Hello from a Severless Cors Proxy!");
+        res.send(`Welcome to Serverless CORS Proxy ${request.header('Origin')}`);
     })
   }));
 
