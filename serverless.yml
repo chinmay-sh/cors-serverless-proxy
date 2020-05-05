@@ -6,45 +6,16 @@ provider:
   name: aws
   runtime: nodejs12.x
   stage: dev
-  region: us-east-1
+  region: ap-south-1
 
 plugins:
   - serverless-offline #serverless-offline needs to be last in the list
 
 
 functions:
-  corsHello:
-    handler: handler.corsHello
+  app:
+    handler: index.handler
     events:
       - http:
-          method: get
           path: /
-          cors: true
-  corsProxyGet:
-    handler: handler.corsProxyGet
-    events:
-      - http:
-          method: get
-          path: /proxy
-          cors: true
-  corsProxyPost:
-    handler: handler.corsProxyPost
-    events:
-      - http:
-          method: post
-          path: /proxy
-          cors: true
-  corsProxyPut:
-    handler: handler.corsProxyPut
-    events:
-      - http:
-          method: put
-          path: /proxy
-          cors: true
-  corsProxyDelete:
-    handler: handler.corsProxyDelete
-    events:
-      - http:
-          method: delete
-          path: /proxy
-          cors: true
+          method: ANY

@@ -1,36 +1,33 @@
 'use strict';
 
 const axios = require('axios');
-const cors = require('cors')({origin: true});
+const cors = require('cors');
 const serverless = require('serverless-http');
 const express = require('express')
 var app = express()
 
 app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
-/*
-var whitelist = ['https://github.io', 'https://the-redlord.github.io/']
+
+var whitelist = ['https://github.io', 'https://the-redlord.github.io']
 var corsOptions = {
   origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true)
+    if (whitelist.includes(origin)) {
+      return callback(null, true)
     } else {
-      callback(new Error('Not allowed by CORS'))
+      return callback(new Error('Not allowed by CORS'))
     }
   }
 }
 
 app.use(cors(corsOptions));
-*/
-module.exports.corsHello = serverless(app.get('/',(request, response) => {
-    cors(request,response, ()=>{
-        res.send(`Welcome to Serverless CORS Proxy`);
-    })
-  }));
+
+app.get('/',async(request, response) => {
+        response.send(`Welcome to Serverless CORS Proxy`);
+});
 
 // GET proxy
-module.exports.corsProxyGet = serverless(app.get('/proxy',(req, res) => {
-    cors(req,res, async ()=>{
+app.get('/proxy',async(req, res) => {
         if(req.method !== 'GET') {
             return res.status(401).json({
              message: 'Not allowed'
@@ -47,12 +44,10 @@ module.exports.corsProxyGet = serverless(app.get('/proxy',(req, res) => {
         }
 
         res.status(200).json(result.data);
-    });    
-}));
+});
 
 // POST proxy
-module.exports.corsProxyPost = serverless(app.post('/proxy',(req, res) => {
-    cors(req,res, async ()=>{
+app.post('/proxy',async(req, res) => {
         if(req.method !== 'POST') {
             return res.status(401).json({
              message: 'Wrong Method - Not allowed'
@@ -73,12 +68,10 @@ module.exports.corsProxyPost = serverless(app.post('/proxy',(req, res) => {
         }
 
         res.status(200).json(result.data);
-    });    
-}));
+});
 
 // PUT proxy
-module.exports.corsProxyPut = serverless(app.put('/proxy',(req, res) => {
-    cors(req,res, async ()=>{
+app.put('/proxy',async(req, res) => {
         if(req.method !== 'PUT') {
             return res.status(401).json({
              message: 'Wrong Method - Not allowed'
@@ -99,12 +92,10 @@ module.exports.corsProxyPut = serverless(app.put('/proxy',(req, res) => {
         }
 
         res.status(200).json(result.data);
-    });    
-}));
+});
 
 // DELETE Proxy
-module.exports.corsProxyDelete = serverless(app.delete('/proxy',(req, res) => {
-    cors(req,res, async ()=>{
+app.delete('/proxy',async(req, res) => {
         if(req.method !== 'DELETE') {
             return res.status(401).json({
              message: 'Wrong Method - Not allowed'
@@ -124,5 +115,8 @@ module.exports.corsProxyDelete = serverless(app.delete('/proxy',(req, res) => {
         }
 
         res.status(200).json(result.data);
-    });    
-}));
+});
+
+
+
+module.exports.handler = serverless(app);
