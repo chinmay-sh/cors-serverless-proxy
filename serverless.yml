@@ -20,10 +20,17 @@ functions:
           method: get
           path: /
           cors: true
-  corsProxy:
+  corsProxyGet:
     handler: handler.corsProxyGet
     events:
       - http:
           method: get
+          path: /proxy
+          cors: true
+  corsProxyPost:
+    handler: handler.corsProxyPost
+    events:
+      - http:
+          method: post
           path: /proxy
           cors: true
