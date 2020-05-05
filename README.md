@@ -1,4 +1,4 @@
-﻿# cors-serverless-proxy
+﻿# cors-serverless-proxy :rocket:
 
 A simple serverless CORS reverse Proxy.
 
