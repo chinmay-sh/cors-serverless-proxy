@@ -14,7 +14,7 @@ module.exports.corsHello = serverless(app.get('/',(request, response) => {
   }));
 
 
-module.exports.corsProxy = serverless(app.get('/proxy',(req, res) => {
+module.exports.corsProxyGet = serverless(app.get('/proxy',(req, res) => {
     cors(req,res, async ()=>{
         if(req.method !== 'GET') {
             return res.status(401).json({
@@ -36,3 +36,27 @@ module.exports.corsProxy = serverless(app.get('/proxy',(req, res) => {
         res.status(200).json(result.data);
     });    
 }));
+/*
+module.exports.corsProxyPost = serverless(app.get('/proxy',(req, res) => {
+    cors(req,res, async ()=>{
+        if(req.method !== 'GET') {
+            return res.status(401).json({
+             message: 'Not allowed'
+            })
+           }
+        const url = req.query.url;
+        //const data = req.body;
+        //console.log(data);
+        var result;
+        try {
+            result = await axios.get(url);
+        } catch (error) {
+            console.error(error);
+            res.status(400).send('BAD Request!');
+            throw error;
+        }
+
+        res.status(200).json(result.data);
+    });    
+}));
+*/

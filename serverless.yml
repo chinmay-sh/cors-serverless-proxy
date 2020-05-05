@@ -1,4 +1,4 @@
-service: cors-proxy-get
+service: cors-proxy
 
 frameworkVersion: ">=1.1.0 <2.0.0"
 
@@ -21,7 +21,7 @@ functions:
           path: /
           cors: true
   corsProxy:
-    handler: handler.corsProxy
+    handler: handler.corsProxyGet
     events:
       - http:
           method: get
