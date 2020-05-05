@@ -1,6 +1,6 @@
 ﻿# cors-serverless-proxy
 
-A serverless CORS Proxy.
+A simple serverless CORS reverse Proxy.
 
 [![serverless](http://public.serverless.com/badges/v3.svg)](http://www.serverless.com)
 
