@@ -1,7 +1,7 @@
 'use strict';
 
 const axios = require('axios');
-const cors = require('cors')({ origin: true });
+const cors = require('cors')({origin: true});
 const serverless = require('serverless-http');
 const express = require('express')
 var app = express()
@@ -9,21 +9,22 @@ var app = express()
 app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 /*
-var test;
-
-const validator = (req,res) =>{
-    var whitelist = ['https://the-redlord.github.io/', 'http://aakashgangaa.space/'];
-
-    console.log(req.header('Origin'));
-    test=req.header('Origin');
-    
+var whitelist = ['https://github.io', 'https://the-redlord.github.io/']
+var corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
 }
 
-app.use(validator);
+app.use(cors(corsOptions));
 */
 module.exports.corsHello = serverless(app.get('/',(request, response) => {
     cors(request,response, ()=>{
-        res.send(`Welcome to Serverless CORS Proxy ${request.header('Origin')}`);
+        res.send(`Welcome to Serverless CORS Proxy`);
     })
   }));
 
