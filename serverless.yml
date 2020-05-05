@@ -1,0 +1,29 @@
+service: cors-proxy-get
+
+frameworkVersion: ">=1.1.0 <2.0.0"
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: dev
+  region: us-east-1
+
+plugins:
+  - serverless-offline #serverless-offline needs to be last in the list
+
+
+functions:
+  corsHello:
+    handler: handler.corsHello
+    events:
+      - http:
+          method: get
+          path: /
+          cors: true
+  corsProxy:
+    handler: handler.corsProxy
+    events:
+      - http:
+          method: get
+          path: /get
+          cors: true
