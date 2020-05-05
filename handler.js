@@ -16,7 +16,7 @@ module.exports.corsHello = serverless(app.get('/',(request, response) => {
     })
   }));
 
-
+// GET proxy
 module.exports.corsProxyGet = serverless(app.get('/proxy',(req, res) => {
     cors(req,res, async ()=>{
         if(req.method !== 'GET') {
@@ -38,6 +38,7 @@ module.exports.corsProxyGet = serverless(app.get('/proxy',(req, res) => {
     });    
 }));
 
+// POST proxy
 module.exports.corsProxyPost = serverless(app.post('/proxy',(req, res) => {
     cors(req,res, async ()=>{
         if(req.method !== 'POST') {
@@ -51,6 +52,31 @@ module.exports.corsProxyPost = serverless(app.post('/proxy',(req, res) => {
         var result;
         try {
             result = await axios.post(url,data,{
+                headers: {'Content-type': req.header('Content-type')}
+            });
+        } catch (error) {
+            console.error(error);
+            res.status(400).send('BAD Request!');
+            throw error;
+        }
+
+        res.status(200).json(result.data);
+    });    
+}));
+
+// DELETE Proxy
+module.exports.corsProxyDelete = serverless(app.delete('/proxy',(req, res) => {
+    cors(req,res, async ()=>{
+        if(req.method !== 'DELETE') {
+            return res.status(401).json({
+             message: 'Wrong Method - Not allowed'
+            })
+           }
+        const url = req.query.url;
+        const data = req.body;
+        var result;
+        try {
+            result = await axios.delete(url,data,{
                 headers: {'Content-type': req.header('Content-type')}
             });
         } catch (error) {

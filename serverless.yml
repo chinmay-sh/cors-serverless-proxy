@@ -34,3 +34,17 @@ functions:
           method: post
           path: /proxy
           cors: true
+  corsProxyPut:
+    handler: handler.corsProxyPut
+    events:
+      - http:
+          method: put
+          path: /proxy
+          cors: true
+  corsProxyDelete:
+    handler: handler.corsProxyDelete
+    events:
+      - http:
+          method: delete
+          path: /proxy
+          cors: true
