@@ -25,5 +25,5 @@ functions:
     events:
       - http:
           method: get
-          path: /get
+          path: /proxy
           cors: true
