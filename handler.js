@@ -25,8 +25,6 @@ module.exports.corsProxyGet = serverless(app.get('/proxy',(req, res) => {
             })
            }
         const url = req.query.url;
-        //const data = req.body;
-        //console.log(data);
         var result;
         try {
             result = await axios.get(url);
